@@ -8,7 +8,7 @@ class AnnoucementInteg   extends PlaySpec with OneServerPerTest with OneBrowserP
 
     "work from within a browser" in {
 
-      go to (s"http://localhost:$port/announcements")
+      go to (s"http://localhost:$port/")
 
       pageTitle mustBe  ("Announcements")
 
