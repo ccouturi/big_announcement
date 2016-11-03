@@ -2,6 +2,7 @@ package controllers
 
 import javax.inject._
 
+import play.api.libs.json._
 import play.api.mvc._
 
 /**
@@ -17,8 +18,11 @@ class AnnouncementController @Inject() extends Controller {
    * will be called when the application receives a `GET` request with
    * a path of `/`.
    */
-  def announcements = Action {
-    Ok(views.html.announcements("Announcements"))
+  def announcements = Action { implicit request =>
+    render {
+      case Accepts.Html() => Ok(views.html.announcements("Announcements"))
+      case Accepts.Json() => Ok(Json.toJson("[]"))
+    }
   }
 
 }
