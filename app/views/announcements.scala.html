@@ -2,7 +2,7 @@
  * This template takes a single argument, a String containing a
  * message to display.
  *@
-@(message: String)
+@(announcementsList: List[Announcement])
 
 @*
  * Call the `main` template with two arguments. The first
@@ -16,5 +16,11 @@
      * template and passing a `String` message.
      *@
    <h1>Announcements</h1>
+
+   <ul>
+       @for(announcement <- announcementsList) {
+            <li class="announcement">@announcement.message</li>
+       }
+   </ul>
 
 }

@@ -13,6 +13,11 @@ class AnnoucementInteg   extends PlaySpec with OneServerPerTest with OneBrowserP
       pageTitle mustBe  ("Announcements")
 
       find(cssSelector("h1")) map(_.underlying.getText) mustBe Some("Announcements")
+      findAll(cssSelector(".announcement")).toList.size mustBe 2
+    }
+
+    "add a new announcement" in {
+
     }
 
 

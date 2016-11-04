@@ -1,4 +1,5 @@
 import models.Announcement
+import models.Announcement._
 import org.scalatestplus.play._
 import play.api.libs.json._
 import play.api.mvc.Headers
@@ -33,6 +34,17 @@ class AnnoucementSpec extends PlaySpec with OneAppPerTest {
       contentAsJson(announcements).as[List[Announcement]] mustBe expected
       contentAsJson(announcements) mustBe Json.parse("""[{"message":"toto"},{"message":"tata"}] """)
     }
+
+    "add announcement to list" in {
+      val request = FakeRequest(POST, "/announcements")
+        .withHeaders("Content-Type" -> "application/json")
+        .withJsonBody(Json.parse("""{"message": "titi"}"""))
+      //Comment serialiser automatiquement Announcement
+      val addAnnouncement = route(app, request).get
+
+      status(addAnnouncement) mustBe CREATED
+    }
+
 
   }
 

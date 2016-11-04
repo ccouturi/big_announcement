@@ -19,9 +19,13 @@ class AnnouncementController @Inject() extends Controller {
 
   def announcements = Action { implicit request =>
     render {
-      case Accepts.Html() => Ok(views.html.announcements("Announcements"))
+      case Accepts.Html() => Ok(views.html.announcements(announcementsList))
       case Accepts.Json() => Ok(Json.toJson(announcementsList))
     }
+  }
+
+  def addAnnouncement = Action { implicit request =>
+        Created(Json.toJson("{}"))
   }
 
 }
