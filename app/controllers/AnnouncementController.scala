@@ -4,8 +4,9 @@ import javax.inject._
 
 import play.api.libs.json._
 import play.api.mvc._
-
 import models.Announcement
+
+import scala.collection.mutable.MutableList
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -14,7 +15,7 @@ import models.Announcement
 @Singleton
 class AnnouncementController @Inject() extends Controller {
 
-  val announcementsList: List[Announcement] = List(Announcement("toto"), Announcement("tata"))
+  val announcementsList: MutableList[Announcement] = MutableList(Announcement("toto"), Announcement("tata"))
 
 
   def announcements = Action { implicit request =>
@@ -24,8 +25,15 @@ class AnnouncementController @Inject() extends Controller {
     }
   }
 
-  def addAnnouncement = Action { implicit request =>
+  def addAnnouncement() = Action { implicit request =>
+    request.body.asJson match {
+      case Some(newAnnouncement) => {
+        announcementsList += newAnnouncement.as[Announcement]
         Created(Json.toJson("{}"))
+      }
+      case None => BadRequest("fail")
+    }
+
   }
 
 }
